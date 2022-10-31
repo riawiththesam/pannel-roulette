@@ -12,8 +12,11 @@ export type RouletteItemProps = {
   image: HTMLImageElement;
   item: ItemType;
   x: number;
+  y: number;
   itemWidth: number;
   itemHeight: number;
+  centerX: number;
+  centerY: number;
 };
 
 export const RouletteItem: React.FC<RouletteItemProps> = (props) => {
@@ -22,12 +25,16 @@ export const RouletteItem: React.FC<RouletteItemProps> = (props) => {
 
   if (props.item.lighting && props.item.stopped) {
     current?.to({
+      x: props.centerX,
+      y: props.centerY,
       scaleX: 2,
       scaleY: 2,
       duration: 0.2,
     });
   } else {
     current?.to({
+      x: props.x + props.itemWidth / 2,
+      y: props.y + props.itemHeight / 2,
       scaleX: 1,
       scaleY: 1,
       duration: 0.01,
@@ -38,7 +45,7 @@ export const RouletteItem: React.FC<RouletteItemProps> = (props) => {
     <Group
       x={props.x + props.itemWidth / 2}
       offsetX={props.itemWidth / 2}
-      y={props.itemHeight / 2}
+      y={props.y + props.itemHeight / 2}
       offsetY={props.itemHeight / 2}
       ref={groupRef}
       visible={props.item.lighting}

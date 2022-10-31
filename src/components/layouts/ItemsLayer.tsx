@@ -35,6 +35,8 @@ export const ItemsLayer: React.FC<ItemsLayerProps> = (props) => {
             y={y}
             width={width}
             height={rowHeight}
+            centerX={width / 2}
+            centerY={height / 2}
           />
         );
       })}

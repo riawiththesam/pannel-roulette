@@ -7,14 +7,16 @@ export type ItemsRowProps = {
   y: number;
   width: number;
   height: number;
+  centerX: number;
+  centerY: number;
 };
 
 export const ItemsRow: React.FC<ItemsRowProps> = (props) => {
-  const { image, items, y, width, height } = props;
+  const { image, items, y, width, height, centerX, centerY } = props;
   const itemWidth = width / items.length;
 
   return (
-    <Group y={y}>
+    <Group>
       {items.map((item, index) => {
         const x = index * itemWidth;
 
@@ -24,8 +26,11 @@ export const ItemsRow: React.FC<ItemsRowProps> = (props) => {
             image={image}
             item={item}
             x={x}
+            y={y}
             itemWidth={itemWidth}
             itemHeight={height}
+            centerX={centerX}
+            centerY={centerY}
           />
         );
       })}
