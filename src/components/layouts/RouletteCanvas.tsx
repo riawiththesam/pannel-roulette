@@ -1,17 +1,29 @@
 import { Layer, Stage, Image } from "react-konva";
 import { RouletteData } from "../../App";
 import { ItemsLayer } from "./ItemsLayer";
+import { ItemType } from "./ItemsRow";
 
-type Props = {
+export type RouletteState = {
+  lightingList: Array<number>;
+};
+
+export type Props = {
   rouletteData: RouletteData;
+  state: RouletteState;
 };
 
 export const RouletteCanvas: React.FC<Props> = (props) => {
   const { itemList, backgroundImage, row, col } = props.rouletteData;
-  const imageElement = new window.Image();
-  if (backgroundImage != null) {
-    imageElement.src = window.URL.createObjectURL(backgroundImage);
-  }
+  const { lightingList } = props.state;
+
+  const itemWithStateList = itemList.map<ItemType>((item, index) => {
+    const lighting = lightingList.some((l) => l === index);
+
+    return {
+      text: item,
+      lighting: lighting,
+    };
+  });
 
   const width = 960;
   const height = 540;
@@ -22,12 +34,12 @@ export const RouletteCanvas: React.FC<Props> = (props) => {
   return (
     <Stage width={width} height={height}>
       <Layer>
-        <Image image={imageElement} width={width} height={height} />
+        <Image image={backgroundImage} width={width} height={height} />
       </Layer>
       <Layer>
         <ItemsLayer
           textFrame={textFrame}
-          items={itemList}
+          items={itemWithStateList}
           row={row}
           col={col}
           width={width}

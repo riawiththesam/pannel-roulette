@@ -1,10 +1,10 @@
 import split from "just-split";
 import range from "just-range";
-import { ItemsRow } from "./ItemsRow";
+import { ItemsRow, ItemType } from "./ItemsRow";
 
 export type ItemsLayerProps = {
   textFrame: HTMLImageElement;
-  items: Array<string>;
+  items: Array<ItemType>;
   row: number;
   col: number;
   width: number;

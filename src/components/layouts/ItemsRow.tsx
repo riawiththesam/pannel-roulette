@@ -1,8 +1,13 @@
 import { Image, Group, Text } from "react-konva";
 
+export type ItemType = {
+  text: string;
+  lighting: boolean;
+};
+
 export type ItemsRowProps = {
   image: HTMLImageElement;
-  items: Array<string>;
+  items: Array<ItemType>;
   y: number;
   width: number;
   height: number;
@@ -18,10 +23,10 @@ export const ItemsRow: React.FC<ItemsRowProps> = (props) => {
         const x = index * itemWidth;
 
         return (
-          <Group key={index} x={x}>
+          <Group key={index} x={x} visible={item.lighting}>
             <Image image={image} width={itemWidth} height={height} />
             <Text
-              text={item}
+              text={item.text}
               width={itemWidth}
               height={height}
               fill="black"

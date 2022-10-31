@@ -19,9 +19,15 @@ export const ItemFormInput: React.FC<Props> = (props) => {
 
   const _onSubmit: SubmitHandler<FormInputType> = (data) => {
     const textList = data.itemListText.split("\n");
+
+    const imageElement = new window.Image();
+    if (backgroundFile != null) {
+      imageElement.src = window.URL.createObjectURL(backgroundFile);
+    }
+
     props.onSubmit({
       itemList: textList,
-      backgroundImage: backgroundFile,
+      backgroundImage: imageElement,
       row: 3,
       col: 4,
     });
@@ -52,7 +58,7 @@ export const ItemFormInput: React.FC<Props> = (props) => {
   ].join("\n");
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={1}>
       <TextareaAutosize
         defaultValue={defaultText}
         minRows={10}
