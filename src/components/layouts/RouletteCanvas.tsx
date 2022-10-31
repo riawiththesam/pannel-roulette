@@ -12,6 +12,8 @@ export type RouletteState = {
 export type Props = {
   rouletteData: RouletteData;
   state: RouletteState;
+  windowWidth?: number;
+  onClick: () => void;
 };
 
 export const RouletteCanvas: React.FC<Props> = (props) => {
@@ -28,14 +30,21 @@ export const RouletteCanvas: React.FC<Props> = (props) => {
     };
   });
 
+  const windowWidth = props.windowWidth || 960;
   const width = 960;
   const height = 540;
+  const scale = windowWidth / width;
 
   const textFrame = new window.Image();
   textFrame.src = "http://localhost:5173/text-frame.jpg";
 
   return (
-    <Stage width={width} height={height}>
+    <Stage
+      width={width * scale}
+      height={height * scale}
+      scale={{ x: scale, y: scale }}
+      onClick={props.onClick}
+    >
       <Layer>
         <Image image={backgroundImage} width={width} height={height} />
       </Layer>

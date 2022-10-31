@@ -1,21 +1,13 @@
-import { useState } from "react";
-import {
-  FormControlLabel,
-  Button,
-  Container,
-  Stack,
-  Switch,
-} from "@mui/material";
+import { useState, useEffect } from "react";
 import { useTimer } from "use-timer";
 import random from "just-random-integer";
-import {
-  ItemFormInput,
-  OnSubmitDataHandler,
-} from "./components/layouts/ItemFormInput";
-import {
-  RouletteCanvas,
-  RouletteState,
-} from "./components/layouts/RouletteCanvas";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { OnSubmitDataHandler } from "./components/layouts/ItemFormInput";
+import { RouletteState } from "./components/layouts/RouletteCanvas";
+import { SettingLayout } from "./components/layouts/SettingLayout";
+import { FullScreenLayout } from "./components/layouts/FullScreenLayout";
+import { css } from "@emotion/react";
+import { useRef } from "react";
 
 export type RouletteData = {
   itemList: Array<string>;
@@ -43,6 +35,14 @@ export function App() {
       setRouletteState({ ...rouletteState, lightingList: next });
     },
   });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [windowWidth, setWindowWidth] = useState(0);
+  useEffect(() => {
+    setWindowWidth(containerRef.current?.offsetWidth || 0);
+  }, []);
+  window.onresize = () => {
+    setWindowWidth(containerRef.current?.offsetWidth || 0);
+  };
 
   const onSubmit: OnSubmitDataHandler = (data) => {
     setRouletteData(data);
@@ -70,30 +70,39 @@ export function App() {
     setRouletteState({ ...rouletteState, showAll: next, stopped: false });
   };
 
+  const settingLayout = (
+    <SettingLayout
+      rouletteData={rouletteData}
+      rouletteState={rouletteState}
+      startStopButtonText={startStopButtonText}
+      onClickStartStop={onClickStartStop}
+      onShowAllChanged={onShowAllChanged}
+      onSubmit={onSubmit}
+    />
+  );
+
+  const fullScreenLayout = (
+    <FullScreenLayout
+      rouletteData={rouletteData}
+      rouletteState={rouletteState}
+      windowWidth={windowWidth}
+      onClick={onClickStartStop}
+    />
+  );
+
+  const containerCss = css`
+    width: 100%;
+    height: 100%;
+  `;
+
   return (
-    <div className="App">
-      <Container maxWidth="lg">
-        <Stack spacing={3}>
-          <RouletteCanvas rouletteData={rouletteData} state={rouletteState} />
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={onClickStartStop}
-          >
-            {startStopButtonText}
-          </Button>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={rouletteState.showAll}
-                onChange={onShowAllChanged}
-              />
-            }
-            label="ShowAll"
-          />
-          <ItemFormInput onSubmit={onSubmit} />
-        </Stack>
-      </Container>
+    <div css={containerCss} ref={containerRef}>
+      <BrowserRouter>
+        <Routes>
+          <Route path={`/`} element={settingLayout} />
+          <Route path={`/full-screen`} element={fullScreenLayout} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
