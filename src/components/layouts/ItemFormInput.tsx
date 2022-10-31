@@ -38,7 +38,6 @@ export const ItemFormInput: React.FC<Props> = (props) => {
     const files = event.currentTarget.files;
     if (!files || files?.length === 0) return;
     const file = files[0];
-    console.log(file);
     setBackgroundFile(file);
   };
 

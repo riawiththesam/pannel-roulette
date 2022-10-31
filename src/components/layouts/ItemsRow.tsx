@@ -32,7 +32,7 @@ export const ItemsRow: React.FC<ItemsRowProps> = (props) => {
               fill="black"
               align="center"
               verticalAlign="middle"
-              fontSize={50}
+              fontSize={40}
               fontFamily="Roboto"
             />
           </Group>

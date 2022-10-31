@@ -4,6 +4,7 @@ import { ItemsLayer } from "./ItemsLayer";
 import { ItemType } from "./ItemsRow";
 
 export type RouletteState = {
+  showAll: boolean;
   lightingList: Array<number>;
 };
 
@@ -14,10 +15,10 @@ export type Props = {
 
 export const RouletteCanvas: React.FC<Props> = (props) => {
   const { itemList, backgroundImage, row, col } = props.rouletteData;
-  const { lightingList } = props.state;
+  const { showAll, lightingList } = props.state;
 
   const itemWithStateList = itemList.map<ItemType>((item, index) => {
-    const lighting = lightingList.some((l) => l === index);
+    const lighting = lightingList.some((l) => l === index || showAll);
 
     return {
       text: item,
