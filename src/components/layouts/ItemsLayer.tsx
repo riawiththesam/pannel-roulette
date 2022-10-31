@@ -1,6 +1,7 @@
 import split from "just-split";
 import range from "just-range";
-import { ItemsRow, ItemType } from "./ItemsRow";
+import { ItemsRow } from "./ItemsRow";
+import { ItemType } from "./RouletteItem";
 
 export type ItemsLayerProps = {
   textFrame: HTMLImageElement;

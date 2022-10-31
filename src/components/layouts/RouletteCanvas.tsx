@@ -1,9 +1,10 @@
 import { Layer, Stage, Image } from "react-konva";
 import { RouletteData } from "../../App";
 import { ItemsLayer } from "./ItemsLayer";
-import { ItemType } from "./ItemsRow";
+import { ItemType } from "./RouletteItem";
 
 export type RouletteState = {
+  stopped: boolean;
   showAll: boolean;
   lightingList: Array<number>;
 };
@@ -15,7 +16,7 @@ export type Props = {
 
 export const RouletteCanvas: React.FC<Props> = (props) => {
   const { itemList, backgroundImage, row, col } = props.rouletteData;
-  const { showAll, lightingList } = props.state;
+  const { stopped, showAll, lightingList } = props.state;
 
   const itemWithStateList = itemList.map<ItemType>((item, index) => {
     const lighting = lightingList.some((l) => l === index || showAll);
@@ -23,6 +24,7 @@ export const RouletteCanvas: React.FC<Props> = (props) => {
     return {
       text: item,
       lighting: lighting,
+      stopped: stopped,
     };
   });
 

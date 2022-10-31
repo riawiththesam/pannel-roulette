@@ -1,9 +1,5 @@
-import { Image, Group, Text } from "react-konva";
-
-export type ItemType = {
-  text: string;
-  lighting: boolean;
-};
+import { Group } from "react-konva";
+import { ItemType, RouletteItem } from "./RouletteItem";
 
 export type ItemsRowProps = {
   image: HTMLImageElement;
@@ -23,19 +19,14 @@ export const ItemsRow: React.FC<ItemsRowProps> = (props) => {
         const x = index * itemWidth;
 
         return (
-          <Group key={index} x={x} visible={item.lighting}>
-            <Image image={image} width={itemWidth} height={height} />
-            <Text
-              text={item.text}
-              width={itemWidth}
-              height={height}
-              fill="black"
-              align="center"
-              verticalAlign="middle"
-              fontSize={40}
-              fontFamily="Roboto"
-            />
-          </Group>
+          <RouletteItem
+            key={index}
+            image={image}
+            item={item}
+            x={x}
+            itemWidth={itemWidth}
+            itemHeight={height}
+          />
         );
       })}
     </Group>

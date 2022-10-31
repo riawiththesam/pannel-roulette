@@ -1,4 +1,4 @@
-import { useState, ChangeEventHandler } from "react";
+import { useState } from "react";
 import {
   FormControlLabel,
   Button,
@@ -32,6 +32,7 @@ export function App() {
     col: 4,
   });
   const [rouletteState, setRouletteState] = useState<RouletteState>({
+    stopped: false,
     showAll: true,
     lightingList: [],
   });
@@ -50,12 +51,12 @@ export function App() {
   const onClickStartStop = () => {
     if (status !== "RUNNING") {
       start();
-      setRouletteState({ ...rouletteState, showAll: false });
+      setRouletteState({ ...rouletteState, stopped: false, showAll: false });
     } else {
       pause();
       const next = [random(0, 11)];
       setRouletteState({
-        ...rouletteState,
+        stopped: true,
         showAll: false,
         lightingList: next,
       });
@@ -66,7 +67,7 @@ export function App() {
 
   const onShowAllChanged = () => {
     const next = !rouletteState.showAll;
-    setRouletteState({ ...rouletteState, showAll: next });
+    setRouletteState({ ...rouletteState, showAll: next, stopped: false });
   };
 
   return (
