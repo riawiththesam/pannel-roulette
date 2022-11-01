@@ -63,6 +63,7 @@ export const ItemFormInput: React.FC<Props> = (props) => {
         minRows={10}
         {...register("itemListText")}
       />
+      <p>背景画像</p>
       <input
         type="file"
         name="example"

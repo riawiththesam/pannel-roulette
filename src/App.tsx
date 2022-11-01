@@ -46,6 +46,8 @@ export function App() {
 
   const onSubmit: OnSubmitDataHandler = (data) => {
     setRouletteData(data);
+    setRouletteState({ ...rouletteState, stopped: false, showAll: true });
+    pause();
   };
 
   const onClickStartStop = () => {

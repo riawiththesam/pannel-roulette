@@ -64,6 +64,7 @@ export const RouletteItem: React.FC<RouletteItemProps> = (props) => {
         verticalAlign="middle"
         fontSize={40}
         fontFamily="Roboto"
+        fontStyle="bold"
       />
     </Group>
   );

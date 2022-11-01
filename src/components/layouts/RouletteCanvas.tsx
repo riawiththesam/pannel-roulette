@@ -36,7 +36,7 @@ export const RouletteCanvas: React.FC<Props> = (props) => {
   const scale = windowWidth / width;
 
   const textFrame = new window.Image();
-  textFrame.src = "http://localhost:5173/text-frame.jpg";
+  textFrame.src = "/text-frame.jpg";
 
   return (
     <Stage
