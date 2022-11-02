@@ -99,7 +99,7 @@ export function App() {
 
   return (
     <div css={containerCss} ref={containerRef}>
-      <BrowserRouter>
+      <BrowserRouter basename="/pannel-roulette">
         <Routes>
           <Route path={`/`} element={settingLayout} />
           <Route path={`/full-screen`} element={fullScreenLayout} />

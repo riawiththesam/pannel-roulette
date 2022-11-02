@@ -2,6 +2,7 @@ import { Layer, Stage, Image } from "react-konva";
 import { RouletteData } from "../../App";
 import { ItemsLayer } from "./ItemsLayer";
 import { ItemType } from "./RouletteItem";
+import textFrameUrl from "../../assets/text-frame.jpg";
 
 export type RouletteState = {
   stopped: boolean;
@@ -36,7 +37,7 @@ export const RouletteCanvas: React.FC<Props> = (props) => {
   const scale = windowWidth / width;
 
   const textFrame = new window.Image();
-  textFrame.src = "/text-frame.jpg";
+  textFrame.src = textFrameUrl;
 
   return (
     <Stage
